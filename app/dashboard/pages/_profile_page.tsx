@@ -1,6 +1,7 @@
 // app/dashboard/pages/profile.tsx
 "use client";
-
+import DataForm from "./components/DataForm";
+import LoggedDataForm from "./components/LoggedDataForm"
 export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-white text-black flex justify-center items-start p-8">
@@ -37,7 +38,10 @@ export default function ProfilePage() {
           <h2 className="text-lg font-semibold">Contact</h2>
           <p className="text-gray-700 mt-1">Email: jane.doe@example.com</p>
         </div>
-        
+        <div className="">
+          <DataForm/>
+          <LoggedDataForm/>
+        </div>
       </div>
     </div>
   );

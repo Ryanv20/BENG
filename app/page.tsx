@@ -4,8 +4,8 @@ import Dashboard from "./dashboard/Dashboard";
 export default function Home() {
   return (
     <div className="">
-        {/* <LandingPage/> */}
-        <Dashboard/>
+        <LandingPage/>
+        {/* <Dashboard/> */}
     </div>
   );
 }
