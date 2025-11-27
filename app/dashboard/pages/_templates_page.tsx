@@ -1,6 +1,7 @@
 // app/dashboard/pages/_templates_page.tsx
 "use client";
 import TemplatesComponent from "./components/TemplatesComponent";
+import WebTemplatesComponents from "./components/WebTemplatesComponents";
 import { useState } from "react";
 
 export default function TemplatesPage() {
@@ -8,14 +9,16 @@ export default function TemplatesPage() {
 
   return (
     <div className="">
-    <div className="">add a div here </div>
+    
       <div>
       {/* Your DataForm JSX */}
       <TemplatesComponent
         selectedTemplate={selectedTemplate}
         setSelectedTemplate={setSelectedTemplate}
       />
-      <p>Selected template: {selectedTemplate}</p>
+      <div className="">
+        <WebTemplatesComponents />
+      </div>
     </div>
     </div>
   );

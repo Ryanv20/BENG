@@ -12,16 +12,20 @@ function generatePortfolioPDF(id, outputFile) {
   const doc = new PDFDocument();
   doc.pipe(fs.createWriteStream(outputFile));
 
-  doc.fontSize(20).text(p.name);
+  doc.fontSize(20).text(p.name || "No Name");
   doc.moveDown();
-  doc.fontSize(12).text(`Bio: ${p.bio}`);
-  doc.text(`Email: ${p.email}`);
-  doc.text(`GitHub: ${p.github}`);
+  doc.fontSize(12).text(`Bio: ${p.bio || ""}`);
+  doc.text(`Email: ${p.email || ""}`);
+  doc.text(`GitHub: ${p.github || ""}`);
   doc.moveDown();
-  doc.text(`Skills: ${p.skills.join(', ')}`);
+
+  const skills = Array.isArray(p.skills) ? p.skills : [];
+  doc.text(`Skills: ${skills.join(', ')}`);
+
   doc.moveDown();
   doc.text('Projects:');
-  p.projects.forEach((proj, i) => doc.text(`${i + 1}. ${proj}`));
+  const projects = Array.isArray(p.projects) ? p.projects : [];
+  projects.forEach((proj, i) => doc.text(`${i + 1}. ${proj}`));
 
   doc.end();
 }

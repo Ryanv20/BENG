@@ -2,14 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const generatePortfolioPDF = require('./modules/generatePortfolioPDF');
-
+const templateRoute = require('./modules/templateRoute');
+const WebTemplateRoute = require('./modules/WebtemplateRoute')
 const connectedUsers = new Set();
 const app = express();
+const webTemplateRoute = require('./modules/WebtemplateRoute');
+
+
 app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => res.send('Portify Engine is running!'));
+
+app.use('/data', express.static(path.join(__dirname, 'data')));
 
 app.get('/forms', (req, res) => {
   const filePath = path.join(__dirname, 'data', 'formData.json');
@@ -48,18 +53,10 @@ app.post('/forms', (req, res) => {
   });
 });
 
+app.use("/template", require("./modules/templateRoute"));
 
-app.get('/pdf/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const out = path.join(__dirname, 'data', `p_${id}.pdf`);
+app.use('/template/web', WebTemplateRoute);
 
-  try {
-    generatePortfolioPDF(id, out);
-    setTimeout(() => res.download(out), 300);
-  } catch (e) {
-    res.status(404).json({ error: e.message });
-  }
-});
 app.listen(8080, () =>
   console.log('Portify Engine running on http://localhost:8080')
 );

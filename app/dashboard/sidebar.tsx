@@ -22,11 +22,10 @@ export default function Sidebar({ setActivePage, activePage }: SidebarProps) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 h-screen bg-black/80 backdrop-blur-md shadow-lg flex flex-col transition-all duration-300 ${
+      className={`h-screen bg-black/80 backdrop-blur-md shadow-lg flex flex-col transition-all duration-300 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      {/* Header */}
       <div className="flex items-center justify-between p-6">
         {!collapsed && <h2 className="text-2xl font-bold text-white/90">Dashboard</h2>}
         <button
@@ -37,7 +36,6 @@ export default function Sidebar({ setActivePage, activePage }: SidebarProps) {
         </button>
       </div>
 
-      {/* Menu Items */}
       <ul className="flex flex-col gap-2 flex-1 px-2">
         {menuItems.map((item) => {
           const isActive = activePage === item.page;
@@ -46,19 +44,14 @@ export default function Sidebar({ setActivePage, activePage }: SidebarProps) {
               <button
                 onClick={() => setActivePage(item.page)}
                 className={`flex items-center gap-3 w-full text-left px-4 py-3 rounded-xl transition-all duration-300
-                  ${isActive ? "bg-white/20 text-white shadow-inner" : "text-white/60 hover:bg-white/10 hover:text-white"}`}
+                ${isActive ? "bg-white/20 text-white shadow-inner" : "text-white/60 hover:bg-white/10 hover:text-white"}`}
               >
-                <span
-                  className={`text-lg transition-colors duration-300 ${
-                    isActive ? "text-cyan-400" : ""
-                  }`}
-                >
+                <span className={`text-lg ${isActive ? "text-cyan-400" : ""}`}>
                   {item.icon}
                 </span>
                 {!collapsed && <span className="truncate">{item.label}</span>}
               </button>
 
-              {/* Active highlight when collapsed */}
               {collapsed && isActive && (
                 <span className="absolute left-0 top-0 h-full w-1 bg-cyan-400 rounded-r-full"></span>
               )}
@@ -67,7 +60,6 @@ export default function Sidebar({ setActivePage, activePage }: SidebarProps) {
         })}
       </ul>
 
-      {/* Footer */}
       <div className="p-6 text-sm text-white/50">
         {!collapsed && "© 2025 YourCompany"}
       </div>

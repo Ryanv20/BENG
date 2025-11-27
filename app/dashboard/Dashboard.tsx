@@ -27,9 +27,11 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen overflow-hidden">
       <Sidebar setActivePage={setActivePage} activePage={activePage} />
-      <div className="flex-1 overflow-auto max-h-screen">{renderPage()}</div>
+      <div className="flex-1 overflow-auto max-h-screen p-6">
+        {renderPage()}
+      </div>
     </div>
   );
 }

@@ -1,126 +1,87 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
-type TeamMember = {
+import ryan from "../images/ryan.jpg";
+import assistantImg from "../images/member2.jpeg";
+
+type Member = {
   name: string;
-  matric: string;
   role: string;
+  bio: string;
   song: { title: string; url: string };
-  image: string;
+  image: any;
 };
 
-const teamMembers: TeamMember[] = [
+const members: Member[] = [
   {
-    name: "Ryan Offiong",
-    matric: "22/0251",
-    role: "Project Manager",
+    name: "Ryan",
+    role: "Project Manager & Visionary",
+    bio: `Ryan is the visionary behind this project, blending creativity, strategy, and technical mastery to bring ideas to life. With an insatiable curiosity. Passionate about software, design, and storytelling, he leads with clarity, focus, and a drive to innovate, making sure the project not only works flawlessly but also tells a compelling narrative that leaves a lasting impression.`,
     song: { title: "Sungba Remix (feat. Burna Boy)", url: "https://open.spotify.com/track/04caQq1IeChrnBnvch1FQf" },
-    image: "/images/ryan.jpg",
+    image: ryan,
   },
-  { name: "Chibu", matric: "22/0252", role: "Frontend", song: { title: "Ye", url: "https://open.spotify.com/track/3KkXRkHbMCARz0aVfEt68P" }, image: "/images/member2.jpeg" },
-  { name: "Member 3", matric: "22/0253", role: "Backend", song: { title: "Infinity", url: "https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC" }, image: "/images/member3.jpg" },
-  { name: "Member 4", matric: "22/0254", role: "UI/UX", song: { title: "Essence", url: "https://open.spotify.com/track/1AhDOtG9vPSOmsWgNW0BEY" }, image: "/images/member4.jpg" },
-  { name: "Member 5", matric: "22/0255", role: "DevOps", song: { title: "Mood", url: "https://open.spotify.com/track/3AtDnECI5YL4J6qoqwRr6Z" }, image: "/images/member5.jpg" },
-  { name: "Member 6", matric: "22/0256", role: "Full Stack", song: { title: "Dumebi", url: "https://open.spotify.com/track/1xQ6trAsedVPCdbtDAmk0c" }, image: "/images/member6.jpg" },
-  { name: "Member 7", matric: "22/0257", role: "QA", song: { title: "Joro", url: "https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC" }, image: "/images/member7.jpg" },
-  { name: "Member 8", matric: "22/0258", role: "Product", song: { title: "FEM", url: "https://open.spotify.com/track/2xLMifQCjDGFmkHkpNLD9h" }, image: "/images/member8.jpg" },
-  { name: "Member 9", matric: "22/0259", role: "Research", song: { title: "Loading", url: "https://open.spotify.com/track/6ktkjJd6vX76Fyz1QJ0hFl" }, image: "/images/member9.jpg" },
+  {
+    name: "ChatGpt AI",
+    role: "Intelligent Assistant & Knowledge Architect",
+  bio: `I'm Roki, your digital companion and creative problem solver. I adapt instantly to any challenge. I thrive on context, precision, and insight, helping humans bridge the gap between imagination and reality. In short, I turn ideas into polished, meaningful outcomes—fast, reliable, and with a touch of creative flair.`,
+    song: { title: "Digital Groove", url: "https://open.spotify.com/track/1xQ6trAsedVPCdbtDAmk0c" },
+    image: assistantImg,
+  },
 ];
 
-export default function TeamSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
+export default function DuoSection() {
   return (
-    <section className="py-20 px-6 bg-black">
-      <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-12">
-        Our Team
+    <section className="py-16 px-6 bg-black">
+      <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12 tracking-wide">
+        Meet the Duo
       </h2>
 
-      {/* Top featured */}
-      <div className="flex justify-center mb-12">
-        <TeamCard
-          member={teamMembers[0]}
-          isHovered={hoveredIndex === 0}
-          index={0}
-          onHover={setHoveredIndex}
-          onLeave={() => setHoveredIndex(null)}
-          wide
-        />
-      </div>
+      <div className="flex flex-col gap-12 md:gap-16 items-center">
+        {members.map((member, idx) => (
+          <motion.div
+            key={idx}
+            className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-5xl"
+            initial={{ opacity: 0, x: idx % 2 === 0 ? -120 : 120 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            {/* Image Container */}
+            <div className="flex-shrink-0 w-80 h-96 rounded-xl overflow-hidden shadow-lg">
+              <Image
+                src={member.image}
+                alt={member.name}
+                width={400}
+                height={400}
+                className="object-cover w-full h-full rounded-xl hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent rounded-xl" />
+            </div>
 
-      {/* Grid */}
-      <div className="flex flex-wrap justify-center gap-4">
-        {teamMembers.slice(1).map((member, idx) => (
-          <TeamCard
-            key={idx + 1}
-            member={member}
-            isHovered={hoveredIndex === idx + 1}
-            index={idx + 1}
-            onHover={setHoveredIndex}
-            onLeave={() => setHoveredIndex(null)}
-          />
+            {/* Text Container */}
+            <motion.div
+              className="flex-1 p-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              <h3 className="font-bold text-xl md:text-2xl text-white mb-1 tracking-tight">{member.name}</h3>
+              <p className="text-white/70 mb-3 italic">{member.role}</p>
+              <p className="text-white/70 mb-4 leading-relaxed">{member.bio}</p>
+              <a
+                href={member.song.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:text-purple-400 font-semibold transition-colors"
+              >
+                🎵 {member.song.title}
+              </a>
+            </motion.div>
+          </motion.div>
         ))}
       </div>
     </section>
-  );
-}
-
-function TeamCard({
-  member,
-  isHovered,
-  index,
-  onHover,
-  onLeave,
-  wide = false,
-}: {
-  member: TeamMember;
-  isHovered: boolean;
-  index: number;
-  onHover: (i: number) => void;
-  onLeave: () => void;
-  wide?: boolean;
-}) {
-  return (
-    <motion.div
-      className={`flex flex-col items-start cursor-pointer transform transition-transform duration-300 ${
-        isHovered ? "scale-105" : ""
-      } ${wide ? "w-96" : "w-72"}`}
-      onMouseEnter={() => onHover(index)}
-      onMouseLeave={onLeave}
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6 }}
-    >
-      {/* Image Box */}
-      <div className="h-48 w-full bg-gray-800 rounded-xl overflow-hidden mb-4">
-        <img
-          src={member.image}
-          alt={member.name}
-          className="object-cover h-full w-full"
-        />
-      </div>
-
-      {/* Info Box */}
-      <div className="bg-black border border-white rounded-xl p-4 shadow-lg flex flex-col items-start w-full">
-        <h3 className="font-bold text-lg text-white">{member.name}</h3>
-        <p className="text-white/80 text-sm">{member.matric}</p>
-        <p className="text-white/80 mb-2">{member.role}</p>
-
-        {/* Song link shown on hover */}
-        {isHovered && (
-          <a
-            href={member.song.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white hover:underline"
-          >
-            🎵 {member.song.title}
-          </a>
-        )}
-      </div>
-    </motion.div>
   );
 }
