@@ -19,8 +19,8 @@ export default function WebTemplatesComponents() {
     }
   };
 
-  return (
-    <div className="max-w-5xl mx-auto mt-8 text-white">
+  return (//max-w-4xl mx-auto mt-8 relative text-white
+    <div className="max-w-4xl mx-auto mt-8 text-white">
       <h2 className="text-2xl font-bold mb-6">Choose a Web Template</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-14">
         {webTemplates.map(t => (

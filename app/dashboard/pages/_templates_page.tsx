@@ -5,22 +5,18 @@ import WebTemplatesComponents from "./components/WebTemplatesComponents";
 import { useState } from "react";
 
 export default function TemplatesPage() {
-    const [selectedTemplate, setSelectedTemplate] = useState("professional");
+  const [selectedTemplate, setSelectedTemplate] = useState("professional");
 
   return (
-    <div className="">
-    
-      <div>
-      {/* Your DataForm JSX */}
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="mt-6 w-full max-w-5xl">
       <TemplatesComponent
         selectedTemplate={selectedTemplate}
         setSelectedTemplate={setSelectedTemplate}
-      />
-      <div className="">
+      /></div>
+      <div className="mt-6 w-full max-w-5xl">
         <WebTemplatesComponents />
       </div>
     </div>
-    </div>
   );
 }
-
