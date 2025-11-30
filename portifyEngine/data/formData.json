@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Emeka eDoe",
+    "bio": "A passionate developer who loves building web applications.",
+    "email": "john.doe@example.com",
+    "github": "https://github.com/johndoe",
+    "skills": [
+      "JavaScript",
+      "React",
+      "Node.js"
+    ],
+    "projects": [
+      "Portfolio Builder - A tool to create developer portfolios",
+      "Task Manager - A productivity web app"
+    ]
+  }
+]
