@@ -49,7 +49,7 @@ export default function FooterSection() {
             GitHub
           </a>
           <a href="https://linkedin.com/company/portify" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition">
-            LinkedIn
+            Linkedin
           </a>
         </div>
       </motion.div>
