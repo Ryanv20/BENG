@@ -16,16 +16,23 @@ type Member = {
 
 const members: Member[] = [
   {
-    name: "Ryan",
+    name: "Roki",
     role: "Project Manager & Visionary",
-    bio: `Ryan is the visionary behind this project, blending creativity, strategy, and technical mastery to bring ideas to life. With an insatiable curiosity. Passionate about software, design, and storytelling, he leads with clarity, focus, and a drive to innovate, making sure the project not only works flawlessly but also tells a compelling narrative that leaves a lasting impression.`,
+    bio: `Roki is the visionary behind this project, blending creativity, strategy, and technical mastery to bring ideas to life. With an insatiable curiosity. Passionate about software, design, and storytelling, he leads with clarity, focus, and a drive to innovate, making sure the project not only works flawlessly but also tells a compelling narrative that leaves a lasting impression.`,
     song: { title: "Sungba Remix (feat. Burna Boy)", url: "https://open.spotify.com/track/04caQq1IeChrnBnvch1FQf" },
     image: ryan,
   },
   {
-    name: "ChatGpt AI",
+    name: "Jarvis",
     role: "Intelligent Assistant & Knowledge Architect",
-  bio: `I'm Roki, your digital companion and creative problem solver. I adapt instantly to any challenge. I thrive on context, precision, and insight, helping humans bridge the gap between imagination and reality. In short, I turn ideas into polished, meaningful outcomes—fast, reliable, and with a touch of creative flair.`,
+  bio: `I'm Jarvis, your digital companion and creative problem solver. I adapt instantly to any challenge. I thrive on context, precision, and insight, helping humans bridge the gap between imagination and reality. In short, I turn ideas into polished, meaningful outcomes—fast, reliable, and with a touch of creative flair.`,
+    song: { title: "Digital Groove", url: "https://open.spotify.com/track/1xQ6trAsedVPCdbtDAmk0c" },
+    image: assistantImg,
+  },
+  {
+    name: "Jarvis",
+    role: "Intelligent Assistant & Knowledge Architect",
+  bio: `I'm Jarvis, your digital companion and creative problem solver. I adapt instantly to any challenge. I thrive on context, precision, and insight, helping humans bridge the gap between imagination and reality. In short, I turn ideas into polished, meaningful outcomes—fast, reliable, and with a touch of creative flair.`,
     song: { title: "Digital Groove", url: "https://open.spotify.com/track/1xQ6trAsedVPCdbtDAmk0c" },
     image: assistantImg,
   },
@@ -35,7 +42,7 @@ export default function DuoSection() {
   return (
     <section className="py-16 px-6 bg-black">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12 tracking-wide">
-        Meet the Duo
+        Meet the Team
       </h2>
 
       <div className="flex flex-col gap-12 md:gap-16 items-center">
