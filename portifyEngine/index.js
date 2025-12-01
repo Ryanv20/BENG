@@ -2,11 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const templateRoute = require('./modules/templateRoute');
-const WebTemplateRoute = require('./modules/WebtemplateRoute')
 const connectedUsers = new Set();
 const app = express();
-const webTemplateRoute = require('./modules/WebtemplateRoute');
 
 
 app.use(express.json());
@@ -55,7 +52,9 @@ app.post('/forms', (req, res) => {
 
 app.use("/template", require("./modules/templateRoute"));
 
-app.use('/template/web', WebTemplateRoute);
+app.use('/template/web', require('./modules/WebtemplateRoute'));
+// Target Companies Service
+app.use("/targets", require("./modules/targets.route"));
 
 app.listen(8080, () =>
   console.log('Portify Engine running on http://localhost:8080')

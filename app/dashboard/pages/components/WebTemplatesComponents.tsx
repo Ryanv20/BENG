@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import MinimalWebForm from "../components/subTemplates/HtmlPage";
 
 const webTemplates = [
-  { id: "web-minimal", label: "Minimal Web", img: "/webTemplates/minimal.png" },
+  { id: "web-minimal", label: "Minimal Web", img: "/webplaceholder.png" },
 ];
 
 export default function WebTemplatesComponents() {
@@ -20,8 +21,8 @@ export default function WebTemplatesComponents() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-8 text-white">
-      <h2 className="text-2xl font-bold mb-6">Choose a Web Template</h2>
+    <div className="max-w-4xl mx-auto mt-8 text-white">
+      <h2 className="text-2xl font-bold mb-6">Create your Portfolio page from these Web Templates</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-14">
         {webTemplates.map(t => (
           <div
@@ -32,7 +33,13 @@ export default function WebTemplatesComponents() {
             }`}
             style={{ height: "165px" }}
           >
-            <img src={t.img} alt={t.label} className="w-full h-[110px] object-cover" />
+            <Image
+              src={t.img}
+              alt={t.label}
+              width={500}  // adjust as needed
+              height={110} // match h-[110px]
+              className="object-cover w-full h-[110px]"
+            />
             <div className="p-1 text-center text-sm font-medium">{t.label}</div>
           </div>
         ))}
