@@ -26,7 +26,7 @@ const members: Member[] = [
     name: "Jarvis",
     role: "Intelligent Assistant & Knowledge Architect",
   bio: `I'm Jarvis, your digital companion and creative problem solver. I adapt instantly to any challenge. I thrive on context, precision, and insight, helping humans bridge the gap between imagination and reality. In short, I turn ideas into polished, meaningful outcomes—fast, reliable, and with a touch of creative flair.`,
-    song: { title: "Digital Groove", url: "https://open.spotify.com/track/1xQ6trAsedVPCdbtDAmk0c" },
+    song: { title: "Digitaal Groove", url: "https://open.spotify.com/track/1xQ6trAsedVPCdbtDAmk0c" },
     image: assistantImg,
   },
   {

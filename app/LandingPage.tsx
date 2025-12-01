@@ -13,7 +13,7 @@ export default function LandingPage() {
     <Header/>
     <AboutUsSection/>
     <Team/>
-    <Music/>
+    {/* <Music/> */}
     <ContactUs/>
     <FooterSection/>
    </div>
