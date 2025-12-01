@@ -9,6 +9,7 @@ export default function ShortDescription() {
         your projects, technologies, and achievements in a professional and
         visually appealing format. It’s designed for simplicity, performance,
         and seamless customization.
+        We build for the community.
       </p>
     </section>
   );
