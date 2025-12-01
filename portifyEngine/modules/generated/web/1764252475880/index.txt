@@ -1,9 +1,0 @@
-
-    <html>
-      <head><title>Jane Doe</title></head>
-      <body>
-        <h1>Jane Doe</h1>
-        <p>Full-stack developer passionate about building modern web apps.</p>
-      </body>
-    </html>
-  

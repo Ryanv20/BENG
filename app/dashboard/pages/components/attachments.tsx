@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function Attachments() {
   return (
-    <div className="p-6 border rounded-md shadow-md bg-white space-y-4">
+    <div className="p-6 border rounded-md shadow-md bg-black space-y-4">
       <h2 className="text-lg font-semibold">Attachments</h2>
 
       <div className="flex flex-col space-y-2">

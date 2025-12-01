@@ -9,12 +9,13 @@ import ApplicationSendController from "./components/ApplicationSendController";
 import LiveStatusFeed from "./components/LiveStatusFeed";
 export default function Application() {
   return (
-    <div className="flex-1 flex-col">
-        <TargetCompanies/>
-        <MessageTemplate/>
-        <Attachments/>
-        <ApplicationSendController/>
-        <LiveStatusFeed/>
-    </div>
+<div className="flex-1 flex flex-col gap-10">
+    <TargetCompanies />
+    <MessageTemplate />
+    <Attachments />
+    <ApplicationSendController />
+    <LiveStatusFeed />
+</div>
+
   );
 }

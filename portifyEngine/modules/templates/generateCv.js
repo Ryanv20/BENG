@@ -14,161 +14,173 @@ module.exports = async function generateCv(data) {
   const writeStream = fs.createWriteStream(outPath);
   doc.pipe(writeStream);
 
-  const primary = "#0A0A0B";
-  const sub = "#4B5563";
-  const accent = "#1F2937";
-  const divider = "#E5E7EB";
+  // COLORS
+  const primary = "#0B3D91";      // Deep blue for main text
+  const accent = "#F97316";       // Orange accent for headings
+  const sub = "#374151";          // Gray for secondary text
+  const sidebarBg = "#F3F4F6";    // Light gray sidebar
+  const watermark = "#E5E7EB";    // Soft watermark
 
-  // HEAD BLOCK
+  // PAGE SETUP
+  const pageWidth = doc.page.width;
+  const pageHeight = doc.page.height;
+  const sidebarWidth = 150;
+  const margin = 50;
+
+  // SIDEBAR
+  doc
+    .rect(margin, margin, sidebarWidth, pageHeight - 2 * margin)
+    .fill(sidebarBg);
+
+  // WATERMARK
+  doc
+    .fontSize(100)
+    .fillColor(watermark)
+    .opacity(0.1)
+    .rotate(-45, { origin: [pageWidth / 2, pageHeight / 2] })
+    .text(data.name || "YOUR NAME", pageWidth / 4, pageHeight / 3, { align: "center" })
+    .rotate(45, { origin: [pageWidth / 2, pageHeight / 2] })
+    .opacity(1);
+
+  // HEADER - BIG NAME + ROLE
   doc
     .fillColor(primary)
     .font("Helvetica-Bold")
-    .fontSize(40)
-    .text(data.name || "NAME MISSING", { align: "left" });
+    .fontSize(36)
+    .text(data.name || "NAME MISSING", sidebarWidth + margin + 20, margin);
 
   if (data.role || data.title) {
     doc
       .moveDown(0.2)
-      .font("Helvetica")
-      .fontSize(16)
+      .font("Helvetica-Oblique")
+      .fontSize(18)
       .fillColor(accent)
       .text(data.role || data.title, { align: "left" });
   }
 
-  // CONTACT ROW
-  const contactChunks = [data.email, data.phone, data.github, data.linkedin]
-    .filter(Boolean)
-    .join("   |   ");
+  // CONTACT INFO in Sidebar
+  let sidebarY = margin + 120;
+  const sidebarX = margin + 10;
+  const infoItems = [
+    { label: "Email", value: data.email },
+    { label: "Phone", value: data.phone },
+    { label: "GitHub", value: data.github },
+    { label: "LinkedIn", value: data.linkedin },
+  ].filter(i => i.value);
 
-  doc
-    .moveDown(0.3)
-    .fontSize(10)
-    .fillColor(sub)
-    .text(contactChunks, { align: "left" });
+  doc.font("Helvetica").fontSize(10).fillColor(sub);
+  infoItems.forEach(item => {
+    doc.text(`${item.label}:`, sidebarX, sidebarY, { continued: true, bold: true });
+    doc.fillColor(primary).text(` ${item.value}`);
+    sidebarY += 18;
+    doc.fillColor(sub);
+  });
 
-  // VISUAL DIVIDER
-  doc
-    .moveDown(0.8)
-    .strokeColor(divider)
-    .lineWidth(1.2)
-    .moveTo(50, doc.y)
-    .lineTo(545, doc.y)
-    .stroke();
+  // SKILLS in Sidebar
+  if (data.skills?.length) {
+    sidebarY += 20;
+    doc
+      .fillColor(accent)
+      .font("Helvetica-Bold")
+      .text("SKILLS", sidebarX, sidebarY);
+    sidebarY += 15;
+
+    doc.font("Helvetica").fillColor(primary);
+    data.skills.forEach(skill => {
+      doc.circle(sidebarX + 5, sidebarY + 4, 3).fill(accent);
+      doc.text(` ${skill}`, sidebarX + 15, sidebarY);
+      sidebarY += 15;
+    });
+  }
+
+  // CERTIFICATIONS in Sidebar
+  if (data.certifications?.length) {
+    sidebarY += 20;
+    doc.fillColor(accent).font("Helvetica-Bold").text("CERTIFICATIONS", sidebarX, sidebarY);
+    sidebarY += 15;
+    doc.fillColor(primary).font("Helvetica");
+    data.certifications.forEach(cert => {
+      doc.text(`• ${cert}`, sidebarX, sidebarY);
+      sidebarY += 15;
+    });
+  }
+
+  // MAIN COLUMN
+  let mainX = sidebarWidth + margin + 20;
+  let mainY = margin + 80;
 
   const addSection = (title) => {
     doc
-      .moveDown(0.6)
-      .font("Helvetica-Bold")
-      .fontSize(15)
       .fillColor(accent)
-      .text(title.toUpperCase())
-      .moveDown(0.2)
-      .strokeColor(divider)
-      .lineWidth(0.6)
-      .moveTo(50, doc.y)
-      .lineTo(200, doc.y)
-      .stroke()
-      .moveDown(0.4);
+      .font("Helvetica-Bold")
+      .fontSize(16)
+      .text(title.toUpperCase(), mainX, mainY);
+    mainY = doc.y + 5;
+    doc
+      .strokeColor(accent)
+      .lineWidth(1)
+      .moveTo(mainX, mainY)
+      .lineTo(pageWidth - margin, mainY)
+      .stroke();
+    mainY += 10;
   };
 
-  // PROFILE
+  // PROFILE / BIO
   if (data.bio) {
     addSection("Profile");
     doc
+      .fillColor(sub)
       .font("Helvetica")
       .fontSize(11)
-      .fillColor(primary)
-      .text(data.bio, { align: "justify" });
+      .text(data.bio, mainX, mainY, { width: pageWidth - sidebarWidth - 2 * margin });
+    mainY = doc.y + 10;
   }
 
-  // SKILLS
-  if (data.skills?.length) {
-    addSection("Skills");
-    doc
-      .font("Helvetica")
-      .fontSize(11)
-      .fillColor(primary)
-      .text(data.skills.join(" • "), { align: "left" });
-  }
-
-  // PROJECTS
-  if (data.projects?.length) {
-    addSection("Projects");
-    data.projects.forEach((proj, idx) => {
-      doc
-        .font("Helvetica-Bold")
-        .fontSize(11)
-        .fillColor(primary)
-        .text(`${idx + 1}. ${proj.name || proj.title || "Untitled Project"}`);
-
-      if (proj.description) {
-        doc
-          .font("Helvetica")
-          .fontSize(10.5)
-          .fillColor(sub)
-          .text(proj.description);
-      }
-      if (proj.tech) {
-        doc
-          .font("Helvetica")
-          .fontSize(10)
-          .fillColor(primary)
-          .text(`Tech: ${proj.tech.join(", ")}`);
-      }
-      doc.moveDown(0.4);
-    });
-  }
-
-  // EXPERIENCE — important for professionalism
+  // EXPERIENCE
   if (data.experience?.length) {
     addSection("Experience");
-    data.experience.forEach((exp) => {
+    data.experience.forEach(exp => {
       doc
-        .font("Helvetica-Bold")
-        .fontSize(11)
         .fillColor(primary)
-        .text(`${exp.role} — ${exp.company}`);
+        .font("Helvetica-Bold")
+        .fontSize(12)
+        .text(`${exp.role} — ${exp.company}`, mainX, mainY);
       doc
-        .font("Helvetica")
-        .fontSize(10.3)
         .fillColor(sub)
-        .text(exp.duration || "", { align: "left" });
-
-      exp.achievements?.forEach((line) => {
-        doc
-          .font("Helvetica")
-          .fontSize(10.5)
-          .fillColor(primary)
-          .text(`• ${line}`);
+        .font("Helvetica-Oblique")
+        .fontSize(10)
+        .text(exp.duration || "", mainX, doc.y);
+      mainY = doc.y + 2;
+      exp.achievements?.forEach(line => {
+        doc.fillColor(primary).font("Helvetica").fontSize(10).text(`• ${line}`, mainX + 10, mainY);
+        mainY = doc.y;
       });
-      doc.moveDown(0.4);
+      mainY += 8;
     });
   }
 
-  // EDUCATION
-  if (data.education?.length) {
-    addSection("Education");
-    data.education.forEach((ed) => {
-      doc
-        .font("Helvetica-Bold")
-        .fontSize(11)
-        .fillColor(primary)
-        .text(ed.institution);
-      doc
-        .font("Helvetica")
-        .fontSize(10.3)
-        .fillColor(sub)
-        .text(`${ed.program || ""} ${ed.duration ? " | " + ed.duration : ""}`);
-      doc.moveDown(0.4);
-    });
-  }
+// EDUCATION
+if (data.education?.length) {
+  addSection("Education");
+  data.education.forEach(ed => {
+    doc.fillColor(primary).font("Helvetica").fontSize(11).text(`• ${ed}`, mainX, mainY);
+    mainY = doc.y + 5;
+  });
+}
 
-  // FOOTER (clean and non intrusive)
+// PROJECTS
+if (data.projects?.length) {
+  addSection("Projects");
+  data.projects.forEach(proj => {
+    doc.fillColor(primary).font("Helvetica").fontSize(11).text(`• ${proj}`, mainX, mainY);
+    mainY = doc.y + 5;
+  });
+}
+  // FOOTER
   doc
-    .moveDown(2)
     .fontSize(9)
-    .fillColor("#A1A1AA")
-    .text(`CV — ${data.name || ""}`, { align: "center" });
+    .fillColor("#9CA3AF")
+    .text(`Generated CV — ${data.name || ""}`, margin, pageHeight - margin - 10, { align: "center", width: pageWidth - 2 * margin });
 
   doc.end();
   return path.join("data", roleFolder, userFolder, path.basename(outPath));

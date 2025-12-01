@@ -1,40 +1,10 @@
-const fs = require("fs");
-const path = require("path");
 
-module.exports = (templateName, data, ext = "html") => {
-  const folder = createFolder();
-  const filePath = path.join(folder, `index.${ext}`);
-  const htmlContent = generateHTML(data);
-  fs.writeFileSync(filePath, htmlContent, "utf8");
-
-  return {
-    relative: `generated/web/${path.basename(folder)}/index.${ext}`,
-    absolute: path.resolve(filePath),
-  };
-};
-
-function createFolder() {
-  const folder = path.join(__dirname, "../generated/web", Date.now().toString());
-  fs.mkdirSync(folder, { recursive: true });
-  return folder;
-}
-
-function generateHTML({ name, bio, email, skills = [], projects = [] }) {
-  const skillsHTML = skills.length
-    ? skills.map(s => `<span class="tag">${s}</span>`).join("")
-    : "<p>No skills listed</p>";
-
-  const projectsHTML = projects.length
-    ? projects.map(p => `<li>${p}</li>`).join("")
-    : "<p>No projects yet</p>";
-
-  return `
   <!DOCTYPE html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${name || "Portfolio"}</title>
+    <title>Mr Wumi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,17 +26,16 @@ function generateHTML({ name, bio, email, skills = [], projects = [] }) {
   </head>
   <body>
     <div class="container">
-      <h1>${name}</h1>
-      <p>${bio}</p>
-      <p>Email: <a href="mailto:${email}">${email}</a></p>
+      <h1>Mr Wumi</h1>
+      <p>Full-stack developer passionate about building modern web apps.</p>
+      <p>Email: <a href="mailto:jane.doe@example.com">jane.doe@example.com</a></p>
 
       <h2>Skills</h2>
-      <div class="tags">${skillsHTML}</div>
+      <div class="tags"><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Node.js</span></div>
 
       <h2>Projects</h2>
-      <ul>${projectsHTML}</ul>
+      <ul><li>Portfolio Website</li><li>E-commerce App</li><li>Open Source Contributions</li></ul>
     </div>
   </body>
   </html>
-  `;
-}
+  

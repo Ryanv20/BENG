@@ -8,15 +8,15 @@ type SidebarProps = {
 };
 
 const menuItems = [
-  { label: "Portfolio", page: "projects", icon: "P" },
-  { label: "Templates", page: "templates", icon: "T" },
-  { label: "Apply", page: "application", icon: "A" },
-  { label: "Deploy", page: "deploy", icon: "👑" },
+  { label: "Portfolio", page: "projects", icon: "💼" },
+  { label: "Templates", page: "templates", icon: "📝" },
+  { label: "Apply", page: "application", icon: "🖊️" },
+  { label: "Deploy", page: "deploy", icon: "🚀" },
 ];
 
 const bottomItems = [
-  { label: "Settings", page: "preview", icon: "S" },
-  { label: "Profile", page: "profile", icon: "PR" },
+  { label: "Settings", page: "preview", icon: "⚙️" },
+  { label: "Profile", page: "profile", icon: "👤" },
 ];
 
 export default function Sidebar({ setActivePage, activePage }: SidebarProps) {
@@ -75,6 +75,11 @@ export default function Sidebar({ setActivePage, activePage }: SidebarProps) {
                 className={`flex items-center gap-3 w-full text-left px-5 py-3 rounded-xl transition-all duration-300 font-semibold
                 ${isActive ? "bg-white/20 text-white" : "text-white/80 hover:bg-white/10 hover:text-white"}`}
               >
+                {item.icon && (
+                  <span className={`text-lg ${isActive ? "text-cyan-400" : ""}`}>
+                    {item.icon}
+                  </span>
+                )}
                 {!collapsed && <span className="truncate">{item.label}</span>}
               </button>
             </li>
