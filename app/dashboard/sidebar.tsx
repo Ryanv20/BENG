@@ -20,7 +20,7 @@ const bottomItems = [
 ];
 
 export default function Sidebar({ setActivePage, activePage }: SidebarProps) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <nav

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import ProfessionalForm from "./subTemplates/Professional";
 import CvForm from "./subTemplates/Cv";
 // import IntroductionLetterForm from "./subTemplates/IntroductionLetter";
@@ -58,10 +59,12 @@ export default function TemplatesComponent({ selectedTemplate, setSelectedTempla
             }`}
             style={{ height: "165px" }}
           >
-            <img
+            <Image
               src={t.img}
               alt={t.label}
-              className="w-full h-[110px] object-cover"
+              width={500}   // adjust as needed
+              height={110}  // match h-[110px]
+              className="object-cover w-full h-[110px]"
             />
             <div className="p-1 text-center text-sm font-medium">{t.label}</div>
           </div>
