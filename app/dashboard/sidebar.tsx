@@ -8,15 +8,15 @@ type SidebarProps = {
 };
 
 const menuItems = [
-  { label: "Portfolio", page: "projects", icon: "" },
-  { label: "Templates", page: "templates", icon: "" },
-  { label: "Apply", page: "export", icon: "" },
+  { label: "Portfolio", page: "projects", icon: "P" },
+  { label: "Templates", page: "templates", icon: "T" },
+  { label: "Apply", page: "application", icon: "A" },
   { label: "Deploy", page: "deploy", icon: "👑" },
 ];
 
 const bottomItems = [
-  { label: "Settings", page: "preview", icon: "" },
-  { label: "Profile", page: "profile", icon: "" },
+  { label: "Settings", page: "preview", icon: "S" },
+  { label: "Profile", page: "profile", icon: "PR" },
 ];
 
 export default function Sidebar({ setActivePage, activePage }: SidebarProps) {

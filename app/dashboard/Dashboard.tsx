@@ -3,29 +3,29 @@
 
 import { useState } from "react";
 import Sidebar from "./sidebar";
-import ProjectsPage from "./pages/_projects_page";
+import ApplicationPage from "./pages/_application_page";
 import TemplatesPage from "./pages/_templates_page";
 import ProfilePage from "./pages/_profile_page";
-import PreviewPage from "./pages/_preview_page";
+import DeployPage from "./pages/_deploy_page";
 
 export default function Dashboard() {
   const [activePage, setActivePage] = useState("projects");
 
   const renderPage = () => {
     switch (activePage) {
-      case "projects":
-        return <ProjectsPage />;
+      case "application":
+        return <ApplicationPage />;
       case "templates":
         return <TemplatesPage />;
       case "profile":
         return <ProfilePage />;
-      case "preview":
-        return <PreviewPage />;
+      case "deploy":
+        return <DeployPage />;
       default:
-        return <ProjectsPage />;
+        return <ProfilePage />;
     }
   };
-
+//deploy
   return (
     <div className="flex min-h-screen overflow-hidden">
       <Sidebar setActivePage={setActivePage} activePage={activePage} />

@@ -5,6 +5,7 @@ const router = express.Router();
 // Base path to templates
 const templatesPath = path.join(__dirname, 'templates');
 
+
 // POST /template/generate
 router.post("/generate", async (req, res) => {
   try {
